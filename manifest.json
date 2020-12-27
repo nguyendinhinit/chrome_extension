@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+  "name": "Paragraph Replacer",
+  "version": "0.001",
+  "background": {
+    "scripts": [
+      "background.js",
+      "jquery-3.5.1.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.facebook.com/*"
+      ],
+      "js": [
+        "content.js",
+        "jquery-3.5.1.js"
+      ]
+    }
+  ],
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_title": "A popup will come"
+  }
+}
