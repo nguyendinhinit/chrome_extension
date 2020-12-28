@@ -1,13 +1,16 @@
-console.log("background running");
-
-console.log("Content is running");
-
+console.log("background is running");
+window.scrollBy(0, 10000);
 function getPost() {
+    console.log("getPost running")
     let post = document.getElementsByClassName("kvgmc6g5 cxmmr5t8 oygrvhab hcukyx3x c1et5uql");
     console.log(post.length);
 }
-setTimeout(5000, getPost)
+postList = getPost;
+for (let post in postList){
+    console.log(post.textContent);
+}
 console.log("kiin")
+
 // Bắt comment
 
 
