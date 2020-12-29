@@ -5,7 +5,8 @@
   "background": {
     "scripts": [
       "background.js",
-      "jquery-3.5.1.js"
+      "jquery-3.5.1.js",
+      "require.js"
     ]
   },
   "content_scripts": [
@@ -15,7 +16,8 @@
       ],
       "js": [
         "content.js",
-        "jquery-3.5.1.js"
+        "jquery-3.5.1.js",
+        "require.js"
       ]
     }
   ],
