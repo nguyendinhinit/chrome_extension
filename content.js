@@ -37,16 +37,13 @@ function getContainers() {
 function getUser(index) {
     return index.getElementsByClassName("nc684nl6")[0].textContent;
 }
-function getPostsContent() {
-    for (var i = 0; i < containers.length; i++) {
-        if (containers[i].getElementsByClassName("ecm0bbzt hv4rvrfc ihqw7lf3 dati1w0a")[0] == undefined) {
-            postsContainer.push(containers[i].getElementsByClassName("kvgmc6g5 cxmmr5t8 oygrvhab hcukyx3x c1et5uql")[0]);
-        } else {
-            postsContainer.push(containers[i].getElementsByClassName("ecm0bbzt hv4rvrfc ihqw7lf3 dati1w0a")[0]);
-        }
-    }
-    for (var i = 0; i < postsContainer.length; i++) {
-        console.log(postsContainer[i].textContent);
+function getPostsContent(index) {
+    if (index.getElementsByClassName("ecm0bbzt hv4rvrfc ihqw7lf3 dati1w0a")[0] == undefined && index.getElementsByClassName("kvgmc6g5 cxmmr5t8 oygrvhab hcukyx3x c1et5uql")[0] == undefined) {
+        return "null";
+    } else if (index.getElementsByClassName("ecm0bbzt hv4rvrfc ihqw7lf3 dati1w0a")[0] == undefined) {
+        return index.getElementsByClassName("kvgmc6g5 cxmmr5t8 oygrvhab hcukyx3x c1et5uql")[0].textContent;
+    } else {
+        return index.getElementsByClassName("ecm0bbzt hv4rvrfc ihqw7lf3 dati1w0a")[0].textContent;
     }
 }
 function convertJSON() {
@@ -55,7 +52,35 @@ function convertJSON() {
     }
 }
 //------------------------------------END CONTENT---------------------------------//
+//------------------------------------GET LINK-----------------------------------//
+function getLinkPost(index) {
+    if (index.querySelectorAll('[role = "link"]')[4] == undefined) {
+        return null;
+    }
+    else {
+        return index.querySelectorAll('[role = "link"]')[4].getAttribute('href');
+    }
+}
+//------------------------------------END GET LINK-------------------------------//
+//Get reaction
+function getReaction(index) {
+    if (index.querySelectorAll('[aria-label="See who reacted to this"]')[0] == undefined) {
+        return "no reaction";
+    }
+    else {
+        reactionContainer = index.querySelectorAll('[aria-label="See who reacted to this"]')[0];
+        reaction = reactionContainer.querySelectorAll('[role="button"]');
+        for (var i = 0; i < reaction.length; i++) {
+            console.log(reaction[i].getAttribute('aria-label'));
+        }
+    }
+
+}
+//End get reaction
+
 //------------------------------------LOAD COMMENT----------------------------------//
+
+
 function loadMoreComment(commentCon) {
     if (commentCon.getElementsByClassName("j83agx80 fv0vnmcu hpfvmrgz")[0] == undefined) {
         console.log("break loadmorecomment");
@@ -75,18 +100,20 @@ function getCommentOfPost(conmentCon) {
     tmp = commentCon.querySelectorAll('[class="kvgmc6g5 cxmmr5t8 oygrvhab hcukyx3x c1et5uql"]');
     return tmp;
 }
+var postid = 0;
+var jsonObject = [];
 function main() {
     getContainers();
     for (var i = 0; i < containers.length; i++) {
-        console.log(getUser(usersContainer[i]));
+        console.log({ "postid": i, "poster": getUser(usersContainer[i]), "postContent": getPostsContent(containers[i]) });
+        jsonObject.push({ "postid": i, "poster": getUser(usersContainer[i]), "postContent": getPostsContent(containers[i]), "linkPost": getLinkPost(containers[i]), });
     }
+    exportToJsonFile(jsonObject);
 }
 function exportToJsonFile(jsonData) {
     let dataStr = JSON.stringify(jsonData);
     let dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
-
     let exportFileDefaultName = 'data.json';
-
     let linkElement = document.createElement('a');
     linkElement.setAttribute('href', dataUri);
     linkElement.setAttribute('download', exportFileDefaultName);
