@@ -54,12 +54,8 @@ function convertJSON() {
 //------------------------------------END CONTENT---------------------------------//
 //------------------------------------GET LINK-----------------------------------//
 function getLinkPost(index) {
-    if (index.querySelectorAll('[role = "link"]')[4] == undefined) {
-        return null;
-    }
-    else {
-        return index.querySelectorAll('[role = "link"]')[4].getAttribute('href');
-    }
+    temp = index.querySelectorAll('[class = "qzhwtbm6 knvmm38d"]')[1];
+    return temp.querySelectorAll('a[role="link"]')[0].getAttribute("href");
 }
 //------------------------------------END GET LINK-------------------------------//
 //Get reaction
