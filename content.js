@@ -102,7 +102,8 @@ function main() {
     getContainers();
     for (var i = 0; i < containers.length; i++) {
         console.log({ "postid": i, "poster": getUser(usersContainer[i]), "postContent": getPostsContent(containers[i]) });
-        jsonObject.push({ "postid": i, "poster": getUser(usersContainer[i]), "postContent": getPostsContent(containers[i]), "linkPost": getLinkPost(containers[i]), });
+        jsonObject.push({ "postid": i, "poster": getUser(usersContainer[i]), "postContent": getPostsContent(containers[i]), "linkPost": getLinkPost(containers[i])});
+        console.log(getReaction(containers[i]));
     }
     exportToJsonFile(jsonObject);
 }
