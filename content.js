@@ -134,6 +134,7 @@ function exportToJsonFile(jsonData) {
     console.log('end export')
 }
 function main() {
+    jsonObject = [];
     getContainers();
     for (var i = 0; i < containers.length; i++) {
         console.log({ "postid": i, "poster": getUser(usersContainer[i]), "postContent": getPostsContent(containers[i]) });
